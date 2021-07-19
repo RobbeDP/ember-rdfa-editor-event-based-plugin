@@ -12,17 +12,22 @@ export default class RdfaEditorEventBasedPlugin extends Service {
   register(editor, hintsRegistry) {
     this.editor = editor;
     this.hintsRegistry = hintsRegistry;
-    this.editor.on("contentChanged", this.handleContentChange);
-    this.editor.on("rdfaChanged", this.handleRdfaChange);
+    this.editor.on("contentChanged", this.handleContentChanged);
+    this.editor.on("rdfaChanged", this.handleRdfaChanged);
+    this.editor.on("selectionChanged", this.handleSelectionChanged)
   }
 
-  handleContentChange = (event) => {
+  handleContentChanged = (event) => {
     const {name, payload} = event;
-    this.editor.executeCommand("make-highlight");
     console.log(`${name} event triggered!`);
   }
 
-  handleRdfaChange = (event) => {
+  handleRdfaChanged = (event) => {
+    const {name, payload} = event;
+    console.log(`${name} event triggered!`);
+  }
+
+  handleSelectionChanged = (event) => {
     const {name, payload} = event;
     console.log(`${name} event triggered!`);
   }
