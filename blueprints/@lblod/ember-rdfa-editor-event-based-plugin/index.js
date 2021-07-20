@@ -1,22 +1,18 @@
 /* eslint-env node */
 const existsSync = require('exists-sync');
 
-const profilesFile = 'app/config/editor-profiles.js';
+const profilesFile = 'app/config/active-plugins.js';
 
 module.exports = {
   description: 'Adds the plugin to the default and all editor-profiles',
 
   normalizeEntityName() {},
 
-  insertPluginNameAtKey( key, pluginName, afterContents="" ) {
+  insertPluginNameAtKey(key, pluginName, afterContents="") {
     return this.insertIntoFile(
       profilesFile,
       `    "${pluginName}",${afterContents}`,
       { after: `  ${key}: [\n` });
-  },
-
-  isDevelopingAddon() {
-    return true;
   },
 
   async afterInstall(options) {

@@ -1,4 +1,6 @@
 import Service from '@ember/service';
+import RemoveLinkCommand from "../commands/remove-link-command";
+import InsertLinkCommand from "../commands/insert-link-command";
 
 /**
  * Entry point for EventBased
@@ -9,26 +11,12 @@ import Service from '@ember/service';
  * @extends Service
  */
 export default class RdfaEditorEventBasedPlugin extends Service {
-  register(editor, hintsRegistry) {
+  register(editor) {
     this.editor = editor;
-    this.hintsRegistry = hintsRegistry;
-    this.editor.on("contentChanged", this.handleContentChanged);
-    this.editor.on("rdfaChanged", this.handleRdfaChanged);
-    this.editor.on("selectionChanged", this.handleSelectionChanged)
-  }
+    this.editor.addToolbarButton("editor-plugins/insert-link-button");
+    this.editor.addToolbarButton("editor-plugins/remove-link-button");
 
-  handleContentChanged = (event) => {
-    const {name, payload} = event;
-    console.log(`${name} event triggered!`);
-  }
-
-  handleRdfaChanged = (event) => {
-    const {name, payload} = event;
-    console.log(`${name} event triggered!`);
-  }
-
-  handleSelectionChanged = (event) => {
-    const {name, payload} = event;
-    console.log(`${name} event triggered!`);
+    this.editor.registerCommand(new InsertLinkCommand(this.editor.model));
+    this.editor.registerCommand(new RemoveLinkCommand(this.editor.model));
   }
 }
