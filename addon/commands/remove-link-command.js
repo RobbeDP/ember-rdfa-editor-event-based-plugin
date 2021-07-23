@@ -1,16 +1,13 @@
-import {MisbehavedSelectionError} from "../utils/errors";
+import Command from "@lblod/ember-rdfa-editor/commands/command";
+import {MisbehavedSelectionError} from "@lblod/ember-rdfa-editor/utils/errors";
+import isLinkTag from "../utils/helpers";
 
 
-export default class RemoveLinkCommand {
+export default class RemoveLinkCommand extends Command {
   name = "remove-link";
-  model = null;
 
   constructor(model) {
-    this.model = model;
-  }
-
-  isLinkTag = (el) => {
-    return el.type === "a";
+    super(model)
   }
 
   canExecute(range = this.model.selection.lastRange) {
@@ -18,7 +15,7 @@ export default class RemoveLinkCommand {
       return;
     }
 
-    return range.collapsed && range.hasCommonAncestorWhere(this.isLinkTag);
+    return range.collapsed && range.hasCommonAncestorWhere(isLinkTag);
   }
 
   execute(range = this.model.selection.lastRange) {
@@ -26,7 +23,7 @@ export default class RemoveLinkCommand {
       throw new MisbehavedSelectionError();
     }
 
-    const linkElements = range.findCommonAncestorsWhere(this.isLinkTag);
+    const linkElements = range.findCommonAncestorsWhere(isLinkTag);
     const linkElement = linkElements.next().value;
 
     if (!linkElement) throw new Error("No ancestor with <a> tag found");

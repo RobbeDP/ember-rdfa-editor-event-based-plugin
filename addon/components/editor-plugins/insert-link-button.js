@@ -9,6 +9,6 @@ export default class InsertLinkButton extends Component {
   }
 
   onClick = () => {
-    this.editor.executeCommand("insert-link");
+    this.editor.executeCommand("insert-link", "say-editor.com", "sample text");
   }
 }

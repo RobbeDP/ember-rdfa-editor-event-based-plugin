@@ -1,28 +1,35 @@
-import {MisbehavedSelectionError} from "../utils/errors";
+import ModelElement from "@lblod/ember-rdfa-editor/model/model-element";
+import ModelText from "@lblod/ember-rdfa-editor/model/model-text";
+import Command from "@lblod/ember-rdfa-editor/commands/command";
+import {MisbehavedSelectionError} from "@lblod/ember-rdfa-editor/utils/errors";
+import isLinkTag from "../utils/helpers";
 
-export default class InsertLinkCommand {
+export default class InsertLinkCommand extends Command {
   name = "insert-link";
-  model = null;
 
   constructor(model) {
-    this.model = model;
+    super(model);
   }
 
-  canExecute(range = this.model.selection.lastRange) {
+  canExecute(href, content, range = this.model.selection.lastRange) {
     if (!range) {
       return;
     }
 
-    return range.collapsed;
+    return range.collapsed && !range.hasCommonAncestorWhere(isLinkTag);
   }
 
-  execute(label, link, range = this.model.selection.lastRange) {
+  execute(href, content, range = this.model.selection.lastRange) {
     if (!range) {
       throw new MisbehavedSelectionError();
     }
 
-    // TODO: create ModelElement with type "a", add attribute href with value __link__ and add ModelText with content
-    // TODO: label as a link to it.
-    console.log("Link inserted!");
+    const linkTag = new ModelElement("a");
+    linkTag.setAttribute("href", href);
+    linkTag.addChild(new ModelText(content));
+
+    this.model.change((mutator) => {
+      mutator.insertNodes(range, linkTag);
+    });
   }
 }
