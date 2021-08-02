@@ -2,6 +2,10 @@ ember-rdfa-editor-event-based-plugin
 ==============================================================================
 
 This is a demo plugin for the [@lblod/ember-rdfa-editor](https://github.com/lblod/ember-rdfa-editor).
+It first allows user to add links (<a href="say-editor.com">sample text</a> by pressing an insert button.
+These links can also be deleted by pressing a delete button. This button will only be visible if the cursor
+is inside a link tag.
+
 The goal of this small project is mainly to experience with the possibilities of
 plugins in this editor. This plugin is currently not yet compatible with the npm releases
 of the editor. To test this plugin, follow the tutorial in the section **Usage** below.
