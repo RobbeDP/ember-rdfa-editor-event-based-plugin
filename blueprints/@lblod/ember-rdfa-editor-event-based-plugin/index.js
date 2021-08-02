@@ -1,5 +1,5 @@
 /* eslint-env node */
-const existsSync = require('exists-sync');
+const { existsSync } = require('fs');
 
 const profilesFile = 'app/config/active-plugins.js';
 
