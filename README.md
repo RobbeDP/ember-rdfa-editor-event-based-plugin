@@ -1,7 +1,7 @@
 ember-rdfa-editor-event-based-plugin
 ==============================================================================
 
-[Short description of the addon.]
+This is a demo plugin for the [@lblod/ember-rdfa-editor](https://github.com/lblod/ember-rdfa-editor). 
 
 
 Compatibility
