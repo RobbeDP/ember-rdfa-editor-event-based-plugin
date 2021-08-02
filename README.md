@@ -1,7 +1,10 @@
 ember-rdfa-editor-event-based-plugin
 ==============================================================================
 
-[Short description of the addon.]
+This is a demo plugin for the [@lblod/ember-rdfa-editor](https://github.com/lblod/ember-rdfa-editor).
+The goal of this small project is mainly to experience with the possibilities of
+plugins in this editor. This plugin is currently not yet compatible with the npm releases
+of the editor. To test this plugin, follow the tutorial in the section **Usage** below.
 
 
 Compatibility
@@ -23,7 +26,35 @@ ember install ember-rdfa-editor-event-based-plugin
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+Install the editor:
+```shell
+git clone https://github.com/lblod/ember-rdfa-editor.git
+cd ember-rdfa-editor
+git checkout feature/event-based-plugins
+npm install
+npm link
+```
+
+Install the plugin:
+```shell
+git clone https://github.com/RobbeDP/ember-rdfa-editor-event-based-plugin
+cd ember-rdfa-editor-event-based-plugin
+npm install
+npm link
+npm link @lblod/ember-rdfa-editor
+```
+
+Install and set up the ember host app.
+`npm install` will probably report `@lblod/ember-rdfa-editor-event-based-plugin` could not be found.
+In order to fix this, temporarily remove the corresponding line from the `package.json` file and add it again after
+the installation succeeds.
+```shell
+https://github.com/RobbeDP/test-ember-host-app
+cd ember-rdfa-editor-event-based-plugin
+npm install
+npm link @lblod/ember-rdfa-editor
+npm link @lblod/ember-rdfa-editor-event-based-plugin
+```
 
 
 Contributing
