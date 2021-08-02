@@ -28,6 +28,8 @@ export default class RemoveLinkCommand extends Command {
 
     if (!linkElement) throw new Error("No ancestor with <a> tag found");
 
-    linkElement.unwrap();
+    this.model.change((mutator) => {
+      mutator.unwrap(linkElement);
+    });
   }
 }
